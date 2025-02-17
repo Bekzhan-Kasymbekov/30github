@@ -1,0 +1,34 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        long start = 0;
+        long end = sqrt(c);
+        while (start <= end) {
+            long sum = start * start + end * end;
+            if (sum == c) return true;
+            else if (sum > c) end--;
+            else start++;
+        }
+        return false;
+    }
+};
+
+int main() {
+    Solution solution;
+    int c;
+    
+    cout << "Enter a number: ";
+    cin >> c;
+
+    if (solution.judgeSquareSum(c)) {
+        cout << "Yes, " << c << " can be expressed as the sum of two squares." << endl;
+    } else {
+        cout << "No, " << c << " cannot be expressed as the sum of two squares." << endl;
+    }
+
+    return 0;
+}
