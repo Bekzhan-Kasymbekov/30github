@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+#include <limits.h>  // For handling INT_MIN
+using namespace std;
+
+class Solution {
+public:
+    double findMaxAverage(vector<int>& nums, int k) {
+        int windowSum = 0, maxSum = INT_MIN;  // Handle negative numbers properly
+
+        // Compute the sum of the first k elements
+        for(int i = 0; i < k; i++){
+            windowSum += nums[i];
+        }
+        maxSum = windowSum;
+
+        // Slide the window across the array
+        for(int i = k; i < nums.size(); i++){
+            windowSum += nums[i] - nums[i-k];  // Add new element, remove old element
+            maxSum = max(maxSum, windowSum);
+        }
+
+        return maxSum / (double)k;  // Convert to double for accurate division
+    }
+};
+
+// Main function for testing
+int main() {
+    Solution solution;
+    vector<int> nums = {1, 12, -5, -6, 50, 3};  // Example input
+    int k = 4;
+    
+    double result = solution.findMaxAverage(nums, k);
+    cout << "Maximum average subarray of length " << k << " is: " << result << endl;
+
+    return 0;
+}
