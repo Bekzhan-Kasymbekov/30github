@@ -1,0 +1,38 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int start = 0, end = height.size() - 1, maxWater = 0;
+        
+        while (start < end) {
+            int left = height[start];
+            int right = height[end];
+            int containerHeight = (left < right) ? left : right;
+            maxWater = (maxWater > containerHeight * (end - start)) ? maxWater : (containerHeight * (end - start));
+
+            start += (left < right);
+            end -= (left >= right);
+        }
+        return maxWater;
+    }
+};
+
+// Test function with a sample input
+int main() {
+    Solution solution;
+    
+    // Example test case: Heights of the walls
+    vector<int> height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+    
+    // Compute max area
+    int result = solution.maxArea(height);
+    
+    // Print the result
+    cout << "Maximum Water Area: " << result << endl;
+    
+    return 0;
+}
