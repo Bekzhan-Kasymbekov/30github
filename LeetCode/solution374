@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+
+// Mock version of the guess API for testing
+int pickedNumber; // The number to guess
+
+int guess(int num) {
+    if (num > pickedNumber) return -1;
+    if (num < pickedNumber) return 1;
+    return 0;
+}
+
+class Solution {
+public:
+    int guessNumber(int n) {
+        int start = 1;
+        int end = n;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2; // Corrected mid calculation
+            int result = guess(mid);
+
+            if (result == -1) {
+                end = mid - 1;
+            } else if (result == 1) {
+                start = mid + 1;
+            } else {
+                return mid;
+            }
+        }
+        return -1; // Should never be reached in valid cases
+    }
+};
+
+int main() {
+    Solution solution;
+    int n;
+
+    cout << "Enter the upper limit (n): ";
+    cin >> n;
+    cout << "Enter the picked number: ";
+    cin >> pickedNumber;
+
+    int result = solution.guessNumber(n);
+    cout << "Guessed Number: " << result << endl;
+
+    return 0;
+}
